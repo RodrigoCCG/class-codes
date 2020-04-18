@@ -26,24 +26,15 @@ num_color = st.selectbox("Quantas cores?", \
 
 # st.text(num_color)
 # img_gray[img_gray != limiar] = 255
-if num_color == 2:
-    img_gray[img_gray < 127]  = 0
-    img_gray[img_gray >= 127]  = 255
-elif num_color == 4:
-    img_gray[img_gray < 64]  = 0
-    img_gray[(64 < img_gray) & (img_gray < 128)]  = 64
-    img_gray[(128 < img_gray) & (img_gray < 192)]  = 128
-    img_gray[img_gray > 192]  = 192
-else:
-    img_gray[img_gray < 32]  = 0
-    img_gray[(32 < img_gray) & (img_gray < 64)]  = 32
-    img_gray[(64 < img_gray) & (img_gray < 96)]  = 64
-    img_gray[(96 < img_gray) & (img_gray < 128)]  = 128
-    img_gray[(128 < img_gray) & (img_gray < 160)]  = 160
-    img_gray[(160 < img_gray) & (img_gray < 192)]  = 192
-    img_gray[(192 < img_gray) & (img_gray < 224)]  = 224
-    img_gray[img_gray > 224]  = 255
 
+interval= round(255/num_color,0)
+
+for i in range(num_color-1):
+    img_gray[(img_gray >= (interval*i)) & (img_gray < (interval*(i+1)))] = interval*i
+
+img_gray[(img_gray >= 255-interval)] = 255 
+
+st.text(np.unique(img_gray))
 
 new_image = Image.fromarray(img_gray)
 
