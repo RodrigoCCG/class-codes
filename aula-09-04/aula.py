@@ -34,7 +34,7 @@ for i in range(num_color-1):
 
 img_gray[(img_gray >= 255-interval)] = 255 
 
-st.text(np.unique(img_gray))
+#st.text(np.unique(img_gray))
 
 new_image = Image.fromarray(img_gray)
 
